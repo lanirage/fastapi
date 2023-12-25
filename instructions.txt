@@ -1,0 +1,98 @@
+from typing import Optional
+from fastapi import FastAPI
+from pydantic import BaseModel
+from fastapi.params import Body
+
+
+Setup
+1.Install Python
+2.Install and cnfigure VSCODE
+3.Setup Virtual Env
+	1. select virtual env for python.exe Python interpreter ./venv/scripts/python.exe
+	2.select virtual env for terminal activate.bat  >venv/scripts/activate.bat
+
+4.fastapi
+	1. pip install fastapi[all]	
+	2. pip freeze
+	you will see all the dependencies under LIB
+	3. import fastapi from Fastapi
+	4. start fastapi on webserver
+		uvicorn app.main:app 
+
+5. Schemas - Pedantic Library
+
+6.class Post(BaseModel):
+    title:str
+    content:str
+    published: bool= True
+    rating : Optional [int] = None 
+
+7. Http Response codes
+	200 - Customer
+	400 - Not Found
+	500 - Server Errors
+
+8. Postgres retuning *
+	pip install psycopg2
+
+9. Basic Module Usage
+======================
+
+******select * from pg_catalog.pg_user;
+
+# Note: the module name is psycopg, not psycopg3
+import psycopg
+
+# Connect to an existing database
+with psycopg.connect("dbname=test user=postgres") as conn:
+
+    # Open a cursor to perform database operations
+    with conn.cursor() as cur:
+
+        # Execute a command: this creates a new table
+        cur.execute("""
+            CREATE TABLE test (
+                id serial PRIMARY KEY,
+                num integer,
+                data text)
+           """)
+
+        # Pass data to fill a query placeholders and let Psycopg perform
+        # the correct conversion (no SQL injections!)
+        cur.execute(
+            "INSERT INTO test (num, data) VALUES (%s, %s)",
+            (100, "abc'def"))
+
+        # Query the database and obtain data as Python objects.
+        cur.execute("SELECT * FROM test")
+        cur.fetchone()
+        # will return (1, 100, "abc'def")
+
+        # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
+        # of several records, or even iterate on the cursor
+        for record in cur:
+            print(record)
+
+        # Make the changes to the database persistent
+        conn.commit()
+
+10. ORM - SQLACHEMY
+
+   pip install sqlalchemy ******to install specific package pip install sqlalchemy==1.4.23		
+   pip show <packagename> *** Show current version
+   pip index versions <packagename> - Lists all the available package versions you can install.
+
+package calling Setup file
+
+https://www.youtube.com/watch?v=Mgp6-ZMEcE0
+pip install -e .
+	
+	
+
++++ need psopgy
+
+Set-ExecutionPolicy -Scope CurrentUser -ExececutionPolicy Unrestricted
+
+import issues 
+https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+# type: ignore
